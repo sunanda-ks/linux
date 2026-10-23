@@ -15,4 +15,18 @@ pwd-- present working directory
 $---normal user
 #---sudo user
 uname: gives os details , system information
-ls---list the files
+ls -> list files and folders
+ls -l -> list subdirectories in lengthy format
+ls -la -> all files including hidden in lengthy format
+ls -lr -> reverse alphabetical order
+ls -ltr -> files in lengthy format, latest at the bottom
+ls -lt--> timestramp--latest files at top
+
+-rw-r--r--. 	1 		ec2-user ec2-user 	0 		Sep 23 02:08 devops.txt
+<permissions>  <links>  <owner>	 <group>  <size> 		<date>	 <file/folder>
+
+touch <file-name>===to craete empty file
+touch>(file-name)===overwrite the file
+touch>>(file-name)---->appending the file
+
+mkdir <file-name>====to created directory/folder
