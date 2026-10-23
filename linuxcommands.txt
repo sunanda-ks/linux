@@ -1,0 +1,18 @@
+# to craete keys ssh-keygen -f <file name>
+#to connect with ec2 instance ssh -i <private-key> ec2-user@<public ipv4 address of the instance we created>
+-----------------
+Shortcut keys for copy and paste
+Action	Linux Terminal / AWS SSH	Windows Terminal / WSL
+Copy	Ctrl + Shift + C	Ctrl + Shift + C or Ctrl + C
+Paste	Ctrl + Shift + V	Ctrl + Shift + V or Ctrl + V
+Stop a running command	Ctrl + C	Ctrl + C
+Clear terminal screen	Ctrl + L	Ctrl + L
+
+Shift + Insert is a keyboard shortcut used to paste copied text into a terminal. It is an alternative to Ctrl + Shift + V in many Linux terminals.
+--------------------------------------
+id--it gives full info about group id & all
+pwd-- present working directory
+$---normal user
+#---sudo user
+uname: gives os details , system information
+ls---list the files
