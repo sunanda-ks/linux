@@ -26,7 +26,135 @@ ls -lt--> timestramp--latest files at top
 <permissions>  <links>  <owner>	 <group>  <size> 		<date>	 <file/folder>
 
 touch <file-name>===to craete empty file
-touch>(file-name)===overwrite the file
-touch>>(file-name)---->appending the file
-
 mkdir <file-name>====to created directory/folder
+
+linux case sensive where windows case insensitive
+in linux extensions are doesnot matter but in windows it is matter
+
+to see/read the content of the file
+cat <file-name>
+cat>(file-name)===overwrite
+cat>>(file-name)====appending the file
+
+to exit from cat use ctrl+d
+
+cd ..===one step back
+rm <file-name> ==to remove the file name
+rm -r <file-name>--to remove recursive manner(eg:the content which is inside the directory also will be deleted)
+
+cp <source> <destination>
+-r -> recursive option
+cp -r <source> <destination>---this will copy the content of the directories(the total content of source file will be moved to destination file)
+
+to cut will use mv option
+mv <source file> <destination file>---to cut the file
+mv inside same folder works as rename
+wget--webget
+wget <url>--to download the files from web/internet
+---------------------------------
+curl===commonly referred to as cURL
+curl -> it will show the content on the screen <not saving by default>
+curl is used to hit API urls
+
+--------------------interview qn---------------------------
+1. Basic curl commands
+Example 1: Check whether a website is responding
+curl https://www.google.com
+
+What happens?
+- curl sends an HTTP request to Google.
+- The server responds with HTML content.
+- The terminal displays the response body.
+Example 2: Check only the HTTP status code
+curl -o /dev/null -s -w "%{http_code}\n" https://www.google.com
+
+Example output:
+200
+
+
+Common HTTP status codes:
+Code	Meaning
+200	Request successful
+301 / 302	Redirect
+400	Bad request
+401	Authentication required or failed
+403	Forbidden
+404	Resource not found
+500	Internal server error
+503	Service unavailable
+Example 3: Check whether an application is running
+Suppose your application runs on port 8080 on an EC2 instance.
+curl http://localhost:8080
+
+
+If the application responds, you'll see its response body. If it cannot be reached, you may get a connection error.
+
+To check its health endpoint:
+curl -i http://localhost:8080/health
+
+
+The -i option displays the HTTP response headers along with the response body.
+Example 4: Test an API
+curl https://api.example.com/users
+
+
+This sends a GET request by default and displays the response.
+
+To send a POST request with JSON data:
+curl -X POST https://api.example.com/users \
+  -H "Content-Type: application/json" \
+  -d '{"name":"John"}'
+
+
+Here:
+- -X POST specifies the HTTP method.
+- -H adds a request header.
+- -d supplies the request body.
+This example assumes the API supports that endpoint and accepts the supplied data.
+2. How do we use curl in real-time DevOps?
+Imagine you deployed an application using Jenkins to a production server, but users report that it isn't working.
+
+You can troubleshoot it like this:
+Step 1: Check the application locally
+
+curl -I http://localhost:8080
+
+Checks the HTTP response headers from the local application.
+
+
+
+Step 2: Check the application through its domain
+
+curl -I https://app.example.com
+
+Tests the application's externally reachable HTTP endpoint.
+
+
+
+Step 3: Check the health endpoint
+
+curl -i https://app.example.com/health
+
+Helps verify whether the application health endpoint responds as expected.
+
+
+
+If the local request succeeds but the domain request fails, you can investigate the load balancer, DNS, security groups, reverse proxy, or network path.
+3. Important curl options to remember
+Command	Purpose
+curl -I URL	Fetch response headers using a HEAD request
+curl -i URL	Show response headers and body
+curl -v URL	Show detailed connection and request information
+curl -L URL	Follow redirects
+curl -o file.txt URL	Save the response body to a file
+curl -X POST URL	Send a POST request
+curl -H "Header: value" URL	Add a request header
+4. Interview question
+Interviewer: How do you use curl in DevOps?
+
+Answer:
+
+“I use curl to test application endpoints, verify API responses, check HTTP status codes, and troubleshoot connectivity issues after deployment. For example, after a Jenkins deployment, I can use curl against the application's health endpoint to verify that it is responding. If it fails, I investigate the application logs and network configuration.”
+
+Remember: curl is mainly used to communicate with servers and APIs. It helps you test connectivity and inspect responses, but a successful HTTP response alone doesn't guarantee that every part of the application is working correctly.
+when you want to display the content you have to use raw url not blob url
