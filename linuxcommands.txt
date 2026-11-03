@@ -66,10 +66,34 @@ What happens?
 - The server responds with HTML content.
 - The terminal displays the response body.
 Example 2: Check only the HTTP status code
+
 curl -o /dev/null -s -w "%{http_code}\n" https://www.google.com
 
 Example output:
 200
+
+Understanding each option
+Command	Meaning
+curl	Sends an HTTP request to a URL
+-o	Saves the response body to a specified location
+/dev/null	Discards the response body instead of displaying it
+-s	Silent mode; hides progress and error messages
+-w	Displays additional information after the request
+%{http_code}	Prints the HTTP response status code
+\n	Prints a new line
+https://www.google.com	Website being checked
+
+# Display the complete response
+curl https://www.google.com
+
+# Display only HTTP status code
+curl -o /dev/null -s -w "%{http_code}\n" https://www.google.com
+
+# Display response headers
+curl -I https://www.google.com
+
+# Display HTTP status code and total response time
+curl -o /dev/null -s -w "HTTP Code: %{http_code}\nTime: %{time_total}s\n" https://www.google.com
 
 
 Common HTTP status codes:
@@ -82,6 +106,7 @@ Code	Meaning
 404	Resource not found
 500	Internal server error
 503	Service unavailable
+
 Example 3: Check whether an application is running
 Suppose your application runs on port 8080 on an EC2 instance.
 curl http://localhost:8080
@@ -158,3 +183,166 @@ Answer:
 
 Remember: curl is mainly used to communicate with servers and APIs. It helps you test connectivity and inspect responses, but a successful HTTP response alone doesn't guarantee that every part of the application is working correctly.
 when you want to display the content you have to use raw url not blob url
+grep: 
+---------------
+The grep command in Linux is used to search for specific words, text or patterns inside files and command outputs.
+
+grep <word-name> <file-name>
+cat 04-linux.md | grep -inv linux
+
+cat <file-name> | grep <word-name>
+-i -> case insensitive
+-n -> print the line number
+-c -> count of findings:matching line number count: how many times it came:
+-v — invert the match (show lines that don't match)
+here v referers verbouse opposite
+
+cat 04-linux.md | grep -inv linux -> where linux word not there
+ 
+head <file-name> -> prints by default top 10 lines
+head -n 4 <file-name> -> top 4 lines
+
+tail <file-name> -> prints by default bottom 10 lines
+
+
+Piping (|) chains commands together, feeding one command's output into the next. To get lines 5–13 of a file:
+head -n 13 04-linux.md | tail -n 8
+20 lines -> 5-13 lines
+
+head -n 13 <file-name> | tail -n 8 
+head -n 13 04-linux.md | tail -n 8
+
+In Linux and DevOps, tail -f is used to continuously monitor a log file and display new lines as they are added.
+- tail displays the last lines of a file.
+- -f means follow the file as new content is written.
+
+tail -f /var/log/messages  --example
+
+Command	Purpose
+tail -f app.log	Monitor application logs
+tail -f error.log	Watch for application errors
+tail -f /var/log/messages	Monitor system messages on Amazon Linux
+tail -n 100 app.log	Display the last 100 lines
+tail -n 100 -f app.log	Display the last 100 lines and continue monitoring
+
+tail -f <file name>>
+running logfile follow the log
+sudo su -
+cd /var/log
+tail -f dnf.log
+3. How do you stop tail -f?
+Ctrl + C
+
+Remember: tail -f is especially useful when monitoring logs while restarting a service, deploying an application, or reproducing an issue.
+
+
+cut and awk command
+=--------------
+
+In Linux and DevOps, the cut command is used to extract specific columns or parts of each line from a file or text output.
+
+/etc/passwd -> linux user information
+
+cut -d ":" -f1 /etc/passwd--it wills how all the users
+
+https://raw.githubusercontent.com/daws-92s/concepts/refs/heads/main/04-linux.md
+
+cut -d "/" -f1 
+f1 = https
+f2 = 
+f3 = raw.githubusercontent.com
+
+echo "https://raw.githubusercontent.com/daws-92s/concepts/refs/heads/main/04-linux.md" | cut -d "/" -f9
+
+when you will use cut aommand
+when you want to display only users or user ids or particular file name from a text or links
+
+The most commonly used options are:
+- -d — specifies the delimiter (separator).
+- -f — selects fields (columns).
+- -c — selects character positions.
+
+to extract characters
+
+echo "DEVOPS" | cut -c 1-3
+
+o/p:
+----
+DEV
+
+Interview tip: If an interviewer asks how to extract a specific column from delimiter-separated data in Linux, cut -d and cut -f are good options to mention.
+awk:
+ ---------
+The awk command in Linux is used to search, filter, and process text from files or command output, especially when working with columns and fields.
+
+Think of awk as a more powerful version of cut
+awk command
+============
+awk -F "/" '{print $NF}'
+echo "https://raw.githubusercontent.com/daws-92s/concepts/refs/heads/main/04-linux.md" | awk -F "/" '{print $NF}'
+
+awk -F ":" '{print $1F}' /etc/passwd
+
+0-999 -> system users
+1000 -> manually created users
+>999 
+<999 system users
+
+awk -F ":" '$3 > 999 {print $1,$3F}' /etc/passwd
+
+awk -F ":" '$3>999{print $1,$3F}' /etc/passwd---it shows the manual users
+awk -F ":" '$3<=999{print $1,$3F}' /etc/passwd---it shows the system users--here $3 is user id
+
+---------------------------------
+.tar.gz
+
+tar -czf devops.tar.gz <file-name-1> <file-name-2>
+tar -czf devops.tar.gz 04-linux.md devops.txt
+c -> creating
+z -> .gz format
+f -> file names
+
+tar -xzf devops.tar.gz
+
+to see what files have extracted use the below command
+tar -tzvf <file name which you have extracted>
+eg: tar -tzf devops.tar.gz 
+
+vim editor
+________________
+
+vim editor
+===========
+
+colon mode
+==========
+:wq -> write and quit
+:q -> quit
+:q! -> force quit
+:set nu
+:set nonu
+:<line-number> cursor will take us that line number
+/<word-to-search> -> forward search
+?<word-to-search> -> backward search
+:2d -> delete 2nd line
+:5,10d -> delete 5th to 10th lines
+:%d -> delete entire content
+:noh -> dont highlight the word
+:3s/<word-to-find>/<replacing-word> -> by default first occurence in line number 3
+:3s/sbin/SBIN/g -> all occurences in line number 3
+:%s/sbin/SBIN -> entire file, all rows first occurence
+:%s/sbin/SBIN/g -> all rows all occurences
+
+Esc Mode
+========
+gg -> you will be taken to top of the file
+Shift+g -> bottom of the file
+u -> undo
+Ctrl+r -> redo
+yy -> copy that line
+p -> paste that line
+10p -> paste that line 10times
+
+Insert mode
+==========
+i
