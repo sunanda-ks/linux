@@ -1,5 +1,6 @@
 # to craete keys ssh-keygen -f <file name>
 #to connect with ec2 instance ssh -i <private-key> ec2-user@<public ipv4 address of the instance we created>
+#ssh user@publicip4 of the instance ====when the user wants to connect though password authentication
 -----------------
 Shortcut keys for copy and paste
 Action	Linux Terminal / AWS SSH	Windows Terminal / WSL
