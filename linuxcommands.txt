@@ -353,3 +353,4 @@ dnf clean all
 rm -rf /var/cache/dnf/*
 dnf makecache
 dnf eval '%{rhel}
+systemctl daemon-reload
