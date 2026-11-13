@@ -348,3 +348,8 @@ p -> paste that line
 Insert mode
 ==========
 i
+
+dnf clean all
+rm -rf /var/cache/dnf/*
+dnf makecache
+dnf eval '%{rhel}
